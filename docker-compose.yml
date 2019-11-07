@@ -1,0 +1,16 @@
+version: '3'
+services:
+  notebook:
+    build: .
+    volumes:
+      - ./notebooks/:/opt/notebooks
+    command: /opt/conda/bin/jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser
+    ports:
+      - "8888:8888"
+    depends_on: 
+      - mongo
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
